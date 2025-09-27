@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Номер группы: ИКБО-06-22\n'
                 'Номер студенческого билета: 22И0289',
               textAlign: TextAlign.center,
-            ),
+            ),//
       ),
     );
   }
