@@ -64,15 +64,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 width: 150,
                 height: 50
               ),
-              const Text(
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
                 'ФИО: Кузюхин Артемий Вячеславович\n'
                 'Номер группы: ИКБО-06-22\n'
                 'Номер студенческого билета: 22И0289',
-                textAlign: TextAlign.center,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.blueGrey
+                      fontSize: 24,
+                      color: Colors.blueGrey
                   ),
+                ),
               )
             ],
         )
