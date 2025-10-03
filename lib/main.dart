@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:prac3/screens/GalleryScreen.dart';
-import 'package:prac3/screens/HabitatScreen.dart';
-import 'package:prac3/screens/HomeScreen.dart';
-import 'package:prac3/screens/InfoScreen.dart';
-import 'package:prac3/screens/SpeciesScreen.dart';
+import 'package:prac3/screens/gallery_screen.dart';
+import 'package:prac3/screens/habitat_screen.dart';
+import 'package:prac3/screens/home_screen.dart';
+import 'package:prac3/screens/info_screen.dart';
+import 'package:prac3/screens/species_screen.dart';
 
 void main() {
   runApp(const MyApp());
