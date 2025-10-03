@@ -1,0 +1,3 @@
+class InfoScreen {
+  const InfoScreen();
+}

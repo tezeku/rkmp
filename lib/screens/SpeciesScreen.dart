@@ -1,0 +1,3 @@
+class SpeciesScreen {
+  const SpeciesScreen();
+}

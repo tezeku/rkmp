@@ -1,0 +1,3 @@
+class GalleryScreen {
+  const GalleryScreen();
+}

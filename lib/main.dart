@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:prac3/screens/GalleryScreen.dart';
+import 'package:prac3/screens/HabitatScreen.dart';
+import 'package:prac3/screens/HomeScreen.dart';
+import 'package:prac3/screens/InfoScreen.dart';
+import 'package:prac3/screens/SpeciesScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,11 +15,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'MyStatelessWidget App',
+      title: 'Гид по пингвинам',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
       ),
-      home: const MyHomePage(title: 'MyStatelessWidget App Home Page'),
+      home: const MyHomePage(title: 'Главный экран',),
     );
   }
 }
@@ -29,63 +34,56 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _currentScreenIndex = 0;
 
-  void _incrementCounter() {
+  final List<Widget> _screens = [
+    const HomeScreen(),
+    const InfoScreen(),
+    const SpeciesScreen(),
+    const HabitatScreen(),
+    const GalleryScreen()
+  ];
+
+  void _changeScreen(int index) {
     setState(() {
-      _counter++;
+      _currentScreenIndex = index;
     });
-  }
+}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text('Гид по Пингвинам'),
+        backgroundColor: Colors.blue[100],
       ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: Colors.pink,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: ElevatedButton(
-                      onPressed: null,
-                      style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all(Colors.grey),
-                          shape: WidgetStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(24)
-                              )
-                          )
-                      ),
-                      child: const Text('Это кнопка')
-                  )
-              ),
-              const SizedBox(
-                width: 150,
-                height: 50
-              ),
-              const Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Text(
-                'ФИО: Кузюхин Артемий Вячеславович\n'
-                'Номер группы: ИКБО-06-22\n'
-                'Номер студенческого билета: 22И0289',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.blueGrey
-                  ),
-                ),
-              )
-            ],
-        )
+      body: _screens[_currentScreenIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentScreenIndex,
+        onTap: _changeScreen,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Главная',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info),
+            label: 'Инфо',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.emoji_nature),
+            label: 'Виды',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.public),
+            label: 'Среда',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.photo_library),
+            label: 'Галерея',
+          ),
+        ],
       ),
     );
   }
