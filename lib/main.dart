@@ -48,17 +48,24 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
-                  onPressed: null,
-                  style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(Colors.grey),
-                      shape: WidgetStateProperty.all(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24)
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: Colors.pink,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: ElevatedButton(
+                      onPressed: null,
+                      style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all(Colors.grey),
+                          shape: WidgetStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(24)
+                              )
                           )
-                      )
-                  ),
-                  child: const Text('Это кнопка')
+                      ),
+                      child: const Text('Это кнопка')
+                  )
               ),
               const SizedBox(
                 width: 150,
