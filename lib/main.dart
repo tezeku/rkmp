@@ -60,6 +60,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   child: const Text('Это кнопка')
               ),
+              const SizedBox(
+                width: 150,
+                height: 50
+              ),
               const Text(
                 'ФИО: Кузюхин Артемий Вячеславович\n'
                 'Номер группы: ИКБО-06-22\n'
