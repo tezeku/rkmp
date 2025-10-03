@@ -45,18 +45,33 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: null,
-          style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all(Colors.grey),
-            shape: WidgetStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24)
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: null,
+                  style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(Colors.grey),
+                      shape: WidgetStateProperty.all(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24)
+                          )
+                      )
+                  ),
+                  child: const Text('Это кнопка')
+              ),
+              const Text(
+                'ФИО: Кузюхин Артемий Вячеславович\n'
+                'Номер группы: ИКБО-06-22\n'
+                'Номер студенческого билета: 22И0289',
+                textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.blueGrey
+                  ),
               )
-            )
-          ),
-          child: const Text('Это кнопка')
-        ),
+            ],
+        )
       ),
     );
   }
