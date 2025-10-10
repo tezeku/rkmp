@@ -54,7 +54,7 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Виды пингвинов - Column'),
+        title: const Text('Виды пингвинов'),
         backgroundColor: Colors.blue[100],
       ),
       body: Padding(

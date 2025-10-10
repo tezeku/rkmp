@@ -50,7 +50,7 @@ class _HabitatScreenState extends State<HabitatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Регионы обитания - ListView'),
+        title: const Text('Регионы обитания'),
         backgroundColor: Colors.blue[100],
       ),
       body: Column(
