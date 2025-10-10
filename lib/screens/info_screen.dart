@@ -8,22 +8,28 @@ class InfoScreen extends StatefulWidget {
 }
 
 class _InfoScreenState extends State<InfoScreen> {
-  final List<String> _facts = [
-    'Пингвины не умеют летать, но отлично плавают',
-    'Самый крупный вид - императорский пингвин',
-    'Пингвины живут только в Южном полушарии',
-    'Они могут пить морскую воду',
-    'Пингвины моногамны и образуют пары на всю жизнь',
+  final List<Map<String, String>> _facts = [
+    {'id': '1', 'text': 'Пингвины не умеют летать, но отлично плавают'},
+    {'id': '2', 'text': 'Самый крупный вид - императорский пингвин'},
+    {'id': '3', 'text': 'Пингвины живут только в Южном полушарии'},
+    {'id': '4', 'text': 'Они могут пить морскую воду'},
+    {'id': '5', 'text': 'Пингвины моногамны и образуют пары на всю жизнь'},
   ];
 
   final TextEditingController _factController = TextEditingController();
 
+  int _nextId = 6;
+
   void _addFact() {
-    final fact = _factController.text;
-    if (fact.isNotEmpty) {
+    final text = _factController.text;
+    if (text.isNotEmpty) {
       setState(() {
-        _facts.add(fact);
+        _facts.add({
+          'id': _nextId.toString(),
+          'text': text
+        });
       });
+      _nextId++;
       _factController.clear();
     }
   }
@@ -108,10 +114,15 @@ class _InfoScreenState extends State<InfoScreen> {
                 color: Colors.grey,
               ),
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: const Icon(Icons.arrow_forward_ios,
-                      size: 16, color: Colors.blue),
-                  title: Text(_facts[index]),
+                final fact = _facts[index];
+
+                return KeyedSubtree(
+                  key: ValueKey(fact['id']), // Уникальный ключ на основе ID
+                  child: ListTile(
+                    leading: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.blue),
+                    title: Text(fact['text']!),
+                    subtitle: Text('ID: ${fact['id']}'),
+                  ),
                 );
               },
             ),
