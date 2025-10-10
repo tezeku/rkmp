@@ -117,9 +117,10 @@ class _InfoScreenState extends State<InfoScreen> {
                 final fact = _facts[index];
 
                 return KeyedSubtree(
-                  key: ValueKey(fact['id']), // Уникальный ключ на основе ID
+                  key: ValueKey(fact['id']),
                   child: ListTile(
-                    leading: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.blue),
+                    leading: const Icon(Icons.arrow_forward_ios,
+                        size: 16, color: Colors.blue),
                     title: Text(fact['text']!),
                     subtitle: Text('ID: ${fact['id']}'),
                   ),
