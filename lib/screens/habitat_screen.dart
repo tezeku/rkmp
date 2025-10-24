@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HabitatScreen extends StatefulWidget {
   const HabitatScreen({super.key});
@@ -11,15 +12,18 @@ class _HabitatScreenState extends State<HabitatScreen> {
   final List<Map<String, String>> _habitats = [
     {
       'name': 'Антарктида',
-      'description': 'Основное место обитания императорских пингвинов'
+      'description': 'Основное место обитания императорских пингвинов',
+      'image': 'https://png.klev.club/uploads/posts/2024-05/png-klev-club-mpai-p-antarktida-png-24.png',
     },
     {
       'name': 'Субантарктические острова',
-      'description': 'Обитают королевские и хохлатые пингвины'
+      'description': 'Обитают королевские и хохлатые пингвины',
+      'image': 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Joinville-Stub-Picture.png',
     },
     {
       'name': 'Южная Америка',
-      'description': 'Магеллановы и галапагосские пингвины'
+      'description': 'Магеллановы и галапагосские пингвины',
+      'image': 'https://www.clipartmax.com/png/middle/175-1754158_south-america-comments-flecha-para-adentro.png',
     },
   ];
 
@@ -31,7 +35,7 @@ class _HabitatScreenState extends State<HabitatScreen> {
       setState(() {
         _habitats.add({
           'name': name,
-          'description': 'Новый регион обитания пингвинов'
+          'description': 'Новый регион обитания пингвинов',
         });
       });
       _habitatController.clear();
@@ -55,6 +59,32 @@ class _HabitatScreenState extends State<HabitatScreen> {
       ),
       body: Column(
         children: [
+          Container(
+            height: 80,
+            margin: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.blue[50],
+            ),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.public, size: 30, color: Colors.blue),
+                  const SizedBox(width: 10),
+                  const Text(
+                    'Среда обитания пингвинов',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
           Card(
             margin: const EdgeInsets.all(16),
             child: Padding(
@@ -113,12 +143,37 @@ class _HabitatScreenState extends State<HabitatScreen> {
             child: ListView.builder(
               itemCount: _habitats.length,
               itemBuilder: (context, index) {
+                final habitat = _habitats[index];
+                final hasImage = habitat['image'] != null;
+
                 return Card(
                   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   child: ListTile(
-                    leading: const Icon(Icons.public, color: Colors.green),
-                    title: Text(_habitats[index]['name']!),
-                    subtitle: Text(_habitats[index]['description']!),
+                    leading: CircleAvatar(
+                      radius: 25,
+                      backgroundColor: Colors.blue[50],
+                      child: hasImage
+                          ? CachedNetworkImage(
+                        imageUrl: habitat['image']!,
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        placeholder: (context, url) => const CircularProgressIndicator(strokeWidth: 2),
+                        errorWidget: (context, url, error) => const Icon(Icons.public),
+                      )
+                          : const Icon(Icons.add_location, color: Colors.blue),
+                    ),
+                    title: Text(habitat['name']!),
+                    subtitle: Text(habitat['description']!),
+                    trailing: !hasImage
+                        ? const Text('Новая', style: TextStyle(color: Colors.grey))
+                        : null,
                   ),
                 );
               },
