@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class SpeciesScreen extends StatefulWidget {
   const SpeciesScreen({super.key});
@@ -8,37 +9,44 @@ class SpeciesScreen extends StatefulWidget {
 }
 
 class _SpeciesScreenState extends State<SpeciesScreen> {
-  final List<Map<String, String>> _penguinSpecies = [
+  final List<Map<String, dynamic>> _penguinSpecies = [
     {
       'name': 'Императорский пингвин',
-      'description': 'Самый крупный вид, обитает в Антарктиде'
+      'description': 'Самый крупный вид, обитает в Антарктиде',
+      'image': 'https://i.pinimg.com/736x/40/fd/82/40fd825f86f35d3034344b21c6a40aba.jpg',
     },
     {
       'name': 'Королевский пингвин',
-      'description': 'Второй по величине, яркие оранжевые пятна'
+      'description': 'Второй по величине, яркие оранжевые пятна',
+      'image': 'https://i.pinimg.com/736x/e4/45/95/e44595eacfb5900ed00396eeeb09721d.jpg',
     },
     {
       'name': 'Пингвин Адели',
-      'description': 'Небольшие пингвины с белым кольцом вокруг глаз'
+      'description': 'Небольшие пингвины с белым кольцом вокруг глаз',
+      'image': 'https://i.pinimg.com/736x/9a/46/13/9a4613c615a64ba3cb08452aa621fd6d.jpg',
     },
   ];
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
+  final TextEditingController _imageController = TextEditingController();
 
   void _addSpecies() {
     final name = _nameController.text;
     final description = _descController.text;
+    final image = _imageController.text;
 
-    if (name.isNotEmpty && description.isNotEmpty) {
+    if (name.isNotEmpty && description.isNotEmpty && image.isNotEmpty) {
       setState(() {
         _penguinSpecies.add({
           'name': name,
-          'description': description
+          'description': description,
+          'image': image,
         });
       });
       _nameController.clear();
       _descController.clear();
+      _imageController.clear();
     }
   }
 
@@ -92,7 +100,7 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                             backgroundColor: Colors.red,
                             foregroundColor: Colors.white,
                           ),
-                          child: const Text('Удалить первый элемент'),
+                          child: const Text('Удалить первый'),
                         ),
                       ],
                     ),
@@ -128,6 +136,15 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
                         border: OutlineInputBorder(),
                       ),
                     ),
+                    const SizedBox(height: 10),
+                    TextField(
+                      controller: _imageController,
+                      decoration: const InputDecoration(
+                        labelText: 'URL изображения',
+                        border: OutlineInputBorder(),
+                        hintText: 'https://example.com/image.jpg',
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -136,20 +153,36 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
             const SizedBox(height: 20),
 
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    for (int i = 0; i < _penguinSpecies.length; i++)
-                      Card(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: ListTile(
-                          leading: const Icon(Icons.emoji_nature, color: Colors.blue),
-                          title: Text(_penguinSpecies[i]['name']!),
-                          subtitle: Text(_penguinSpecies[i]['description']!),
+              child: ListView.builder(
+                itemCount: _penguinSpecies.length,
+                itemBuilder: (context, index) {
+                  final species = _penguinSpecies[index];
+                  return Card(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        radius: 25,
+                        backgroundColor: Colors.blue[50],
+                        child: CachedNetworkImage(
+                          imageUrl: species['image'],
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          placeholder: (context, url) => const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => const Icon(Icons.broken_image),
                         ),
                       ),
-                  ],
-                ),
+                      title: Text(species['name']),
+                      subtitle: Text(species['description']),
+                    ),
+                  );
+                },
               ),
             ),
           ],
