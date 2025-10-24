@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
       ),
-      home: const MyHomePage(title: 'Главный экран',),
+      home: const MyHomePage(title: 'Главный экран'),
     );
   }
 }
@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _currentScreenIndex = index;
     });
-}
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class GalleryScreen extends StatefulWidget {
   const GalleryScreen({super.key});
@@ -11,23 +12,23 @@ class _GalleryScreenState extends State<GalleryScreen> {
   final List<Map<String, String>> _penguins = [
     {
       'name': 'Императорский пингвин',
-      'image': 'assets/images/penguins/p4.jpg',
+      'image': 'https://i.pinimg.com/736x/40/fd/82/40fd825f86f35d3034344b21c6a40aba.jpg',
     },
     {
       'name': 'Королевский пингвин',
-      'image': 'assets/images/penguins/p5.jpg',
+      'image': 'https://i.pinimg.com/736x/e4/45/95/e44595eacfb5900ed00396eeeb09721d.jpg',
     },
     {
       'name': 'Пингвин Адели',
-      'image': 'assets/images/penguins/p1.jpg',
+      'image': 'https://i.pinimg.com/736x/9a/46/13/9a4613c615a64ba3cb08452aa621fd6d.jpg',
     },
     {
       'name': 'Хохлатый пингвин',
-      'image': 'assets/images/penguins/p3.jpg',
+      'image': 'https://www.worldatlas.com/r/w1200/upload/f7/99/1b/shutterstock-487262299.jpg',
     },
     {
       'name': 'Галапагосский пингвин',
-      'image': 'assets/images/penguins/p2.jpg',
+      'image': 'https://imgs.mongabay.com/wp-content/uploads/sites/25/2017/04/21001447/conservacion-aves-galapagos-biodiversidad-1.jpg',
     },
   ];
 
@@ -36,6 +37,15 @@ class _GalleryScreenState extends State<GalleryScreen> {
   void _nextPenguin() {
     setState(() {
       _currentPenguinIndex = (_currentPenguinIndex + 1) % _penguins.length;
+    });
+  }
+
+  void _previousPenguin() {
+    setState(() {
+      _currentPenguinIndex = (_currentPenguinIndex - 1) % _penguins.length;
+      if (_currentPenguinIndex < 0) {
+        _currentPenguinIndex = _penguins.length - 1;
+      }
     });
   }
 
@@ -63,42 +73,66 @@ class _GalleryScreenState extends State<GalleryScreen> {
 
             const SizedBox(height: 20),
 
-            GestureDetector(
-              onTap: _nextPenguin,
-              child: Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      blurRadius: 10,
-                      offset: const Offset(0, 5),
-                    ),
-                  ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back_ios),
+                  onPressed: _previousPenguin,
                 ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.asset(
-                    currentPenguin['image']!,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: Colors.blue[50],
-                        child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.image, size: 50, color: Colors.blue),
-                            SizedBox(height: 10),
-                            Text('Фото не найдено'),
-                          ],
+                Expanded(
+                  child: GestureDetector(
+                    onTap: _nextPenguin,
+                    child: Container(
+                      height: 300,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: CachedNetworkImage(
+                          imageUrl: currentPenguin['image']!,
+                          fit: BoxFit.cover,
+                          progressIndicatorBuilder: (context, url, progress) =>
+                              Center(
+                                child: CircularProgressIndicator(
+                                  value: progress.progress,
+                                ),
+                              ),
+                          errorWidget: (context, url, error) => Container(
+                            color: Colors.blue[50],
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.error, size: 50, color: Colors.red),
+                                const SizedBox(height: 10),
+                                const Text('Ошибка загрузки'),
+                                const SizedBox(height: 10),
+                                Text(
+                                  'URL: ${Uri.parse(url).host}',
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      );
-                    },
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                IconButton(
+                  icon: const Icon(Icons.arrow_forward_ios),
+                  onPressed: _nextPenguin,
+                ),
+              ],
             ),
 
             const SizedBox(height: 20),
@@ -115,24 +149,6 @@ class _GalleryScreenState extends State<GalleryScreen> {
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
-              ),
-            ),
-
-            const SizedBox(height: 30),
-
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.blue[50],
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.touch_app, size: 16, color: Colors.blue),
-                  SizedBox(width: 8),
-                  Text('Нажмите на фото для переключения'),
-                ],
               ),
             ),
           ],
