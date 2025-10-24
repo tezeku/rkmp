@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class InfoScreen extends StatefulWidget {
   const InfoScreen({super.key});
@@ -51,6 +52,61 @@ class _InfoScreenState extends State<InfoScreen> {
       ),
       body: Column(
         children: [
+          Container(
+            height: 120,
+            margin: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.blue[50],
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Интересные факты',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          'Фактов: ${_facts.length}',
+                          style: const TextStyle(color: Colors.blueGrey),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CachedNetworkImage(
+                      imageUrl: 'https://static.tildacdn.com/087d880f-60c7-4756-8c80-f81d0392701f/idea01.png',
+                      fit: BoxFit.contain,
+                      progressIndicatorBuilder: (context, url, progress) =>
+                          Center(child: CircularProgressIndicator(value: progress.progress)),
+                      errorWidget: (context, url, error) => const Icon(
+                        Icons.info,
+                        size: 50,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
           Card(
             margin: const EdgeInsets.all(16),
             child: Padding(
@@ -119,8 +175,6 @@ class _InfoScreenState extends State<InfoScreen> {
                 return KeyedSubtree(
                   key: ValueKey(fact['id']),
                   child: ListTile(
-                    leading: const Icon(Icons.arrow_forward_ios,
-                        size: 16, color: Colors.blue),
                     title: Text(fact['text']!),
                     subtitle: Text('ID: ${fact['id']}'),
                   ),
