@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:prac3/screens/gallery_screen.dart';
-import 'package:prac3/screens/habitat_screen.dart';
-import 'package:prac3/screens/info_screen.dart';
-import 'package:prac3/screens/species_screen.dart';
-
-import 'intro_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,9 +13,7 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
-            onPressed: () => Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const IntroScreen())
-            ),
+            onPressed: () => context.pushReplacement('/intro'),
             tooltip: 'Выход',
           ),
         ],
@@ -65,44 +57,28 @@ class HomeScreen extends StatelessWidget {
                     'Галерея пингвинов',
                     Icons.photo_library,
                     Colors.blue,
-                        () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const GalleryScreen()
-                            )
-                        ),
+                        () => context.push('/home/gallery'),
                   ),
                   _buildNavigationCard(
                     context,
                     'Виды пингвинов',
                     Icons.eco,
                     Colors.green,
-                        () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const SpeciesScreen()
-                            )
-                        ),
+                        () => context.push('/home/species'),
                   ),
                   _buildNavigationCard(
                     context,
                     'Среда обитания',
                     Icons.public,
                     Colors.orange,
-                        () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const HabitatScreen()
-                            )
-                        ),
+                        () => context.push('/home/habitat'),
                   ),
                   _buildNavigationCard(
                     context,
                     'Интересные факты',
                     Icons.info,
                     Colors.purple,
-                        () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const InfoScreen()
-                            )
-                        ),
+                        () => context.push('/home/info'),
                   ),
                 ],
               ),

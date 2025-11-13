@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:go_router/go_router.dart';
 
 class SpeciesScreen extends StatefulWidget {
   const SpeciesScreen({super.key});
@@ -64,6 +65,10 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
       appBar: AppBar(
         title: const Text('Виды пингвинов'),
         backgroundColor: Colors.blue[100],
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.pop(),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

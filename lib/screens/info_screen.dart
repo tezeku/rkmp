@@ -52,7 +52,7 @@ class _InfoScreenState extends State<InfoScreen> {
         backgroundColor: Colors.blue[100],
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => context.pop(),
         ),
       ),
       body: Column(
