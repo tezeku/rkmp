@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:go_router/go_router.dart';
 
 class HabitatScreen extends StatefulWidget {
   const HabitatScreen({super.key});
@@ -54,8 +55,12 @@ class _HabitatScreenState extends State<HabitatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Регионы обитания'),
+        title: const Text('Среда обитания'),
         backgroundColor: Colors.blue[100],
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Column(
         children: [

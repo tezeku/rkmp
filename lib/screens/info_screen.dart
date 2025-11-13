@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:go_router/go_router.dart';
 
 class InfoScreen extends StatefulWidget {
   const InfoScreen({super.key});
@@ -49,6 +50,10 @@ class _InfoScreenState extends State<InfoScreen> {
       appBar: AppBar(
         title: const Text('Интересные факты'),
         backgroundColor: Colors.blue[100],
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Column(
         children: [
