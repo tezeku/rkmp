@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                   _buildNavigationCard(
                     context,
                     'Виды пингвинов',
-                    Icons.eco,
+                    Icons.style,
                     Colors.green,
                         () => context.push('/home/species'),
                   ),

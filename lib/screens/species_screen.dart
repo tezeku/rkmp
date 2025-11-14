@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:go_router/go_router.dart';
+import '../app_state.dart';
 
 class SpeciesScreen extends StatefulWidget {
   const SpeciesScreen({super.key});
@@ -61,6 +62,8 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appState = AppState.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Виды пингвинов'),
@@ -74,6 +77,24 @@ class _SpeciesScreenState extends State<SpeciesScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    const Icon(Icons.style, color: Colors.green),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Всего видов пингвинов: ${appState.penguinCount}',
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
