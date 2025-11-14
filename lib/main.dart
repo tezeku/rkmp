@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'app_router.dart';
-import 'app_state.dart';
+import 'service_locator.dart';
 
-void main() {
+void main(List<String> args) {
+  setupLocator();
   runApp(const MyApp());
 }
 
@@ -11,14 +12,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppState(
-      penguinCount: 18,
-      child: MaterialApp.router(
-        routerConfig: appRouter,
-        title: 'Гид по пингвинам',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
-        ),
+    return MaterialApp.router(
+      routerConfig: appRouter,
+      title: 'Гид по пингвинам',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
       ),
     );
   }
