@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:go_router/go_router.dart';
-import '../home/cubit/penguin_cubit.dart';
+
+import 'cubit/penguin_cubit.dart';
 
 class SpeciesScreen extends StatelessWidget {
   const SpeciesScreen({super.key});
