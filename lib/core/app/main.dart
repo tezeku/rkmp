@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../services/counter_observer.dart';
 import 'app_router.dart';
-import 'service_locator.dart';
 
-void main(List<String> args) {
-  setupLocator();
+void main() {
+  Bloc.observer = const CounterObserver();
   runApp(const MyApp());
 }
 
@@ -21,3 +22,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+

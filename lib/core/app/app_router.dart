@@ -1,10 +1,10 @@
 import 'package:go_router/go_router.dart';
-import 'screens/home_screen.dart';
-import 'screens/gallery_screen.dart';
-import 'screens/species_screen.dart';
-import 'screens/info_screen.dart';
-import 'screens/habitat_screen.dart';
-import 'screens/intro_screen.dart';
+import '../../presentation/screens/home/home_screen.dart';
+import '../../presentation/screens/gallery/gallery_screen.dart';
+import '../../presentation/screens/species/species_screen.dart';
+import '../../presentation/screens/info/info_screen.dart';
+import '../../presentation/screens/habitat/habitat_screen.dart';
+import '../../presentation/screens/intro/intro_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/intro',
