@@ -8,142 +8,108 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Мир пингвинов'),
-          backgroundColor: Colors.blue[100],
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () => context.pushReplacement('/intro'),
-              tooltip: 'Выход',
-            ),
-          ],
-        ),
-        body: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // Статистика посещений
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          const Icon(Icons.visibility, size: 40, color: Colors.blue),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Посещений: ${state.visitCount}',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () => context.read<HomeCubit>().incrementVisits(),
-                                child: const Text('+1 посещение'),
-                              ),
-                              const SizedBox(width: 10),
-                              ElevatedButton(
-                                onPressed: () => context.read<HomeCubit>().resetVisits(),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.red,
-                                  foregroundColor: Colors.white,
-                                ),
-                                child: const Text('Сбросить'),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // Приветственное сообщение
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Приветствие',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            state.welcomeMessage,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                          const SizedBox(height: 10),
-                          ElevatedButton(
-                            onPressed: () => _showEditMessageDialog(context),
-                            child: const Text('Изменить приветствие'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // Навигационные карточки
-                  Expanded(
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Мир пингвинов'),
+        backgroundColor: Colors.blue[100],
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () => context.pushReplacement('/intro'),
+            tooltip: 'Выход',
+          ),
+        ],
+      ),
+      body: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Статистика посещений
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
                       children: [
-                        _buildNavigationCard(
-                          context,
-                          'Галерея пингвинов',
-                          Icons.photo_library,
-                          Colors.blue,
-                              () => context.push('/home/gallery'),
+                        const Icon(Icons.visibility, size: 40, color: Colors.blue),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Количество посещений: ${state.visitCount}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        _buildNavigationCard(
-                          context,
-                          'Виды пингвинов',
-                          Icons.style,
-                          Colors.green,
-                              () => context.push('/home/species'),
-                        ),
-                        _buildNavigationCard(
-                          context,
-                          'Среда обитания',
-                          Icons.public,
-                          Colors.orange,
-                              () => context.push('/home/habitat'),
-                        ),
-                        _buildNavigationCard(
-                          context,
-                          'Интересные факты',
-                          Icons.info,
-                          Colors.purple,
-                              () => context.push('/home/info'),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () => context.read<HomeCubit>().incrementVisits(),
+                              child: const Text('+1 посещение'),
+                            ),
+                            const SizedBox(width: 10),
+                            ElevatedButton(
+                              onPressed: () => context.read<HomeCubit>().resetVisits(),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red,
+                                foregroundColor: Colors.white,
+                              ),
+                              child: const Text('Сбросить'),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
-            );
-          },
-        ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // Навигационные карточки
+                Expanded(
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    children: [
+                      _buildNavigationCard(
+                        context,
+                        'Галерея пингвинов',
+                        Icons.photo_library,
+                        Colors.blue,
+                            () => context.push('/home/gallery'),
+                      ),
+                      _buildNavigationCard(
+                        context,
+                        'Виды пингвинов',
+                        Icons.style,
+                        Colors.green,
+                            () => context.push('/home/species'),
+                      ),
+                      _buildNavigationCard(
+                        context,
+                        'Среда обитания',
+                        Icons.public,
+                        Colors.orange,
+                            () => context.push('/home/habitat'),
+                      ),
+                      _buildNavigationCard(
+                        context,
+                        'Интересные факты',
+                        Icons.info,
+                        Colors.purple,
+                            () => context.push('/home/info'),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -174,39 +140,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  void _showEditMessageDialog(BuildContext context) {
-    final TextEditingController messageController = TextEditingController();
-
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Изменить приветствие'),
-        content: TextField(
-          controller: messageController,
-          decoration: const InputDecoration(
-            labelText: 'Новое приветствие',
-            border: OutlineInputBorder(),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Отмена'),
-          ),
-          TextButton(
-            onPressed: () {
-              if (messageController.text.isNotEmpty) {
-                context.read<HomeCubit>().updateWelcomeMessage(messageController.text);
-                Navigator.pop(context);
-              }
-            },
-            child: const Text('Сохранить'),
-          ),
-        ],
       ),
     );
   }
